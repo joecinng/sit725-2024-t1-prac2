@@ -1,0 +1,22 @@
+{
+  "name": "practice-2",
+  "version": "1.0.0",
+  "description": "practice for express web servers",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joecinng/sit725-2024-t1-prac2.git"
+  },
+  "author": "Joe Cin NG",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/joecinng/sit725-2024-t1-prac2/issues"
+  },
+  "homepage": "https://github.com/joecinng/sit725-2024-t1-prac2#readme",
+  "dependencies": {
+    "express": "^4.18.3"
+  }
+}
