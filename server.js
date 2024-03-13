@@ -7,51 +7,56 @@ app.get('/', (req, res) => {
 })
 
 app.get('/addTwoNumbers', (req, res) => {
-    calculateTwoNumbers(res, req, "add")
+    calculateTwoNumbers(req, res, "add")
 })
 
 app.get('/subtractTwoNumbers', (req, res) => {
-    calculateTwoNumbers(res, req, "subtract")
+    calculateTwoNumbers(req, res, "subtract")
 })
 
 app.get('/divideTwoNumbers', (req, res) => {
-    calculateTwoNumbers(res, req, "divide")
+    calculateTwoNumbers(req, res, "divide")
 })
 
 app.get('/multiplyTwoNumbers', (req, res) => {
-    calculateTwoNumbers(res, req, "multiply")
+    calculateTwoNumbers(req, res, "multiply")
 })
 
-function calculateTwoNumbers(res, req, type) {
+function calculateTwoNumbers(req, res, type) {
+    let responseData = { data: null, message: '', statusCode: 200 };
+
     try {
         const number1 = Number(req.query.number1)
         const number2 = Number(req.query.number2)
         if (!number1 || !number2) {
-            res.status(400).json( {message: 'Both number1 and number2 must be provided', statusCode: 400 } )
+            responseData.message = "Both number1 and number2 must be provided."
+            responseData.statusCode = 400
+            throw new Error(responseData.message)
         }
 
-        let total = 0
         switch(type) {
             case "add":
-                total = number1 + number2
+                responseData.data = number1 + number2
                 break
             case "subtract":
-                total = number1 - number2
+                responseData.data = number1 - number2
                 break
             case "divide": 
-                total = number1 / number2
+                responseData.data = number1 / number2
                 break
             case "multiply":
-                total = number1 * number2
+                responseData.data = number1 * number2
                 break
             default:
-                total = null
+                responseData.data = null
         }
-        
-        res.status(200).json( {data: total, message: 'success', statusCode: 200} )
+        responseData.message = 'success'
     } catch(error) {
-        res.status(500).json( {data: error.message, message: 'error', statusCode: 500} )
+        responseData.data = error.message
+        responseData.message = "error"
+        responseData.statusCode = 500
     }
+    res.status(responseData.statusCode).json(responseData)
 }
 
 app.listen(port, () => {
